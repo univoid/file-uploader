@@ -29,6 +29,19 @@ $('#upload-input').on('change', function(){
       contentType: false,
       success: function(data){
           console.log('upload successful!\n' + data);
+          var json = JSON.parse(data);
+          $('#Name').text(json['Name']);
+          $('ul').empty();
+          for (var i = 0; i < json['news'].length; i++) {
+                var title = json['news'][i][0]
+                var link = json['news'][i][1]
+                var $li = $("<li></li>");
+                var $l = $("<a></a>");
+                $l.attr("href", link);
+                $l.text(title);
+                $li.append($l);
+                $('#NewsList').append($li);
+          }
       },
       xhr: function() {
         // create an XMLHttpRequest
