@@ -30,17 +30,22 @@ $('#upload-input').on('change', function(){
       success: function(data){
           console.log('upload successful!\n' + data);
           var json = JSON.parse(data);
-          $('#Name').text(json['Name']);
           $('ul').empty();
-          for (var i = 0; i < json['news'].length; i++) {
-                var title = json['news'][i][0]
-                var link = json['news'][i][1]
-                var $li = $("<li></li>");
-                var $l = $("<a></a>");
-                $l.attr("href", link);
-                $l.text(title);
-                $li.append($l);
-                $('#NewsList').append($li);
+          $('#Name').text("No found");
+          if (typeof(json['news'])=="undefined") {
+          } else {
+            $('#Name').text(json['Name']);
+            
+            for (var i = 0; i < json['news'].length; i++) {
+                  var title = json['news'][i][0]
+                  var link = json['news'][i][1]
+                  var $li = $("<li></li>");
+                  var $l = $("<a></a>");
+                  $l.attr("href", link);
+                  $l.text(title);
+                  $li.append($l);
+                  $('#NewsList').append($li);
+            }
           }
       },
       xhr: function() {
